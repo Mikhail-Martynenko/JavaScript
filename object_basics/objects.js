@@ -32,6 +32,8 @@ function isEmpty(obj) {
     return true;
 }
 
+const isEmpty2 = obj => Object.keys(obj).length === 0;
+
 // 3. Объекты-константы?
 // Можно ли изменить объект, объявленный с помощью const? Как вы думаете?
 //
@@ -61,26 +63,27 @@ const sumSalaries = (obj) => {
     }
     return sum;
 }
+const sumSalaries2 = obj => Object.values(obj).reduce((acc, curr) => acc + curr, 0);
 
-//5. Умножаем все числовые свойства на 2
+//5. Умножаем все числовые свойства на 2.
 // Создайте функцию multiplyNumeric(obj), которая умножает все числовые свойства объекта obj на 2.
 //
 // Например:
 //
 // // до вызова функции
-// let menu = {
-//   width: 200,
-//   height: 300,
-//   title: "My menu"
-// };
+let menu = {
+    width: 200,
+    height: 300,
+    title: "My menu"
+};
 //
 // multiplyNumeric(menu);
 //
 // // после вызова функции
 // menu = {
-//   width: 400,
-//   height: 600,
-//   title: "My menu"
+//     width: 400,
+//     height: 600,
+//     title: "My menu"
 // };
 // Обратите внимание, что multiplyNumeric не нужно ничего возвращать. Следует напрямую изменять объект.
 
@@ -94,3 +97,8 @@ const multiplyNumeric = (obj) => {
         }
     }
 }
+
+
+const multiplyNumeric2 = obj => Object.keys(obj).forEach(key => typeof obj[key] === 'number' ? obj[key] *= 2 : null);
+
+console.log(multiplyNumeric2(menu), 'asf')
