@@ -9,3 +9,6 @@
 // let a = new A();
 //
 // alert( a instanceof B ); // true
+
+// Ответ
+// Потому что instanceof проходит по цепочке прототипов
