@@ -37,5 +37,4 @@ let user = {
 //
 // P.S. Игнорируйте символьные свойства, подсчитывайте только «обычные».
 
-const count = (obj) => Object.keys(obj).length
-console.log(count(user))
+const count = (o) => Object.keys(o).length

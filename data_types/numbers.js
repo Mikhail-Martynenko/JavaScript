@@ -35,9 +35,19 @@ alert((6.35 * 10).toFixed(20));
 // В этом случае функция должна вернуть null.
 const readNumber = () => ((num = prompt("Введите число", 0)) === null || num === '' || !isFinite(num)) ? null : +num;
 
-alert(`Число: ${readNumber()}`);
+const readNumber2 = () => {
+    let num;
 
+    do {
+        num = prompt("Введите число:", "");
+        if (num === null) {
+            return null;
+        }
+    } while (!isFinite(num));
 
+    return +num;
+};
+alert(`Число: ${readNumber2()}`);
 //4. Бесконечный цикл по ошибке
 // Этот цикл – бесконечный. Он никогда не завершится, почему?
 //
@@ -61,3 +71,10 @@ alert(`Число: ${readNumber()}`);
 // alert( random(1, 5) ); // 4.3435234525
 const random = (min, max) => min + Math.random() * (max - min);
 
+//вариант с нормальным распределением с использованием функции Бокса-Мюллера
+const randomNormal = (min, max) => {
+    const u = Math.random();
+    const v = Math.random();
+    const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+    return Math.round(z * ((max - min) / 6.0) + ((max + min) / 2.0));
+}

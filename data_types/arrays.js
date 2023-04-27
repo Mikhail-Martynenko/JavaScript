@@ -52,7 +52,7 @@ console.log(styles)
 //у нас есть вызов функции arr[2] как метода объекта. Он получает в качестве this объект arr и выводит массив
 
 
-//4. Сумма введённых чисел
+//4. Сумма введённых чисел.
 // Напишите функцию sumInput(), которая:
 //
 // Просит пользователя ввести значения, используя prompt и сохраняет их в массив.
@@ -60,3 +60,20 @@ console.log(styles)
 // Подсчитывает и возвращает сумму элементов массива.
 // P.S. Ноль 0 – считается числом, не останавливайте ввод значений при вводе «0».
 const sumInput = () => prompt("Введите числа через запятую", "").split(",").reduce((sum, val) => sum + (+val || 0), 0);
+
+// Правильное решение
+function sumInput2() {
+    const numbers = [];
+    while (true) {
+        let value = prompt('Введите число', '')
+        if (value === "" || value === null || !isFinite(value)) break;
+        numbers.push(value)
+    }
+    let sum = 0;
+    for (let number of numbers) {
+        sum += number;
+    }
+    return sum
+}
+
+alert(sumInput2())

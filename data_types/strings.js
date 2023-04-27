@@ -3,7 +3,7 @@
 //
 // ucFirst("вася") == "Вася";
 
-const ucFirst = (str) => str ? str[0].toUpperCase() + str.slice(1) : str;
+const ucFirst = (str) => str[0].toUpperCase() + str.slice(1);
 
 console.log(ucFirst('вася'))
 
@@ -15,8 +15,14 @@ console.log(ucFirst('вася'))
 // checkSpam('buy ViAgRA now') == true
 // checkSpam('free xxxxx') == true
 // checkSpam("innocent rabbit") == false
-const checkSpam = (str) => str.toLowerCase().includes("viagra") || str.toLowerCase().includes("xxx");
+const badWords = ['viagra', 'xxx']
+const checkSpam = (str) => {
+    let lowerStr = str.toLowerCase()
+    const lowerArray = badWords.map(word => word.toLowerCase())
+    return lowerArray.includes(lowerStr)
+}
 
+console.log(checkSpam('xxX'))
 // Создайте функцию truncate(str, maxlength), которая проверяет длину строки str и, если она превосходит maxlength, заменяет конец str на "…", так, чтобы её длина стала равна maxlength.
 //
 // Результатом функции должна быть та же строка, если усечение не требуется, либо, если необходимо, усечённая строка.
@@ -36,5 +42,5 @@ const truncate = (str, maxlength) => (str.length > maxlength) ? str.slice(0, max
 //
 // Например:
 //alert( extractCurrencyValue('$120') === 120 ); // true
-const extractCurrencyValue = (str) => +str.slice(1)
-extractCurrencyValue('$120')
+const extractCurrencyValue = (str) =>  +str.match(/\d+/);
+console.log(extractCurrencyValue('USD: 400, -40%'))

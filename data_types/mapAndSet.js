@@ -42,9 +42,17 @@ let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
 // alert( aclean(arr) ); // "nap,teachers,ear" или "PAN,cheaters,era"
 // Из каждой группы анаграмм должно остаться только одно слово, не важно какое.
 
-const aclean = (arr) => Array.from(new Set(arr.map((element) => element.toLowerCase().split('').sort().join('')))
-)
-aclean(arr)
+
+const aclean = (arr) => {
+    const obj = {};
+    for (const word of arr) {
+        const sorted = word.toLowerCase().split('').sort().join('');
+        obj[sorted] = word;
+    }
+    return Object.values(obj);
+};
+
+console.log(aclean(arr))
 
 
 //3. Перебираемые ключи

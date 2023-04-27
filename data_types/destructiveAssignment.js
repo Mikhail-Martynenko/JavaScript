@@ -1,10 +1,10 @@
 //1. Деструктурирующее присваивание
 // У нас есть объект:
 //
-// let user = {
-//   name: "John",
-//   years: 30
-// };
+let user = {
+    name: "John",
+    years: 30
+};
 // Напишите деструктурирующее присваивание, которое:
 //
 // свойство name присвоит в переменную name.
@@ -12,14 +12,12 @@
 // свойство isAdmin присвоит в переменную isAdmin (false, если нет такого свойства)
 // Пример переменных после вашего присваивания:
 //
-// let user = { name: "John", years: 30 };
-//
 // // ваш код должен быть с левой стороны:
-// // ... = user
+const {name, years: age, isAdmin = false} = user;
 //
-// alert( name ); // John
-// alert( age ); // 30
-// alert( isAdmin ); // false
+// alert(name); // John
+// alert(age); // 30
+// alert(isAdmin); // false
 
 
 //2. Максимальная зарплата
@@ -48,3 +46,6 @@ const topSalary = (salaries) => {
     }
     return maxNameSal;
 }
+
+const topSalary2 = (salaries) => Object.entries(salaries).reduce((acc, [name, salary]) => acc.salary > salary ? acc : { name, salary }, { name: null, salary: 0 }).name;
+console.log(topSalary2(salaries))

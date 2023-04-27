@@ -25,3 +25,13 @@ alert(getWeekDay(date2));
 // alert( getLocalDay(date) );       // вторник, нужно показать 2
 
 const getLocalDay = (date) => date.getDay() === 0 ? 7 : date.getDay();
+
+// 2
+const getLocalDay2 = (date) => {
+    if (!(date instanceof Date) || isNaN(date)) {
+        return null;
+    }
+    const day = date.getDay();
+    return day === 0 ? 7 : day;
+};
+console.log(getLocalDay2())
