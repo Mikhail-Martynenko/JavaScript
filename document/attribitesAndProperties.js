@@ -8,8 +8,11 @@
 //   <div data-widget-name="menu">Choose the genre</div>
 //
 //   <script>
-//     let elem = document.querySelector('[data-widget-name]');
-//     alert(elem.dataset.widgetName);
 //   </script>
 // </body>
 // </html>
+
+// const elem = document.querySelector("[data-widget-name]");
+// if (elem) {
+//   console.log(elem.dataset.widgetName);
+// }

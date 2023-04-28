@@ -12,9 +12,8 @@
 //   className: "welcome" // дополнительный класс для div (необязательно)
 // });
 
-function showNotification(options) {
-    let {top, right, className, html} = options
-    let notification = document.createElement('div');
+function showNotification({top, right, className, html}) {
+    const notification = document.createElement('div');
     notification.className = "notification";
     if (className) notification.classList.add(className);
 
