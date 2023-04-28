@@ -15,15 +15,20 @@ function makeCounter() {
     }
 
     Object.defineProperty(counter, 'get', {
-        get: function() { return count; }
+        get: () => count
+
     });
 
     Object.defineProperty(counter, "set", {
-        set: function(value) { count = value; }
+        set: (value) => {
+            count = value;
+        }
     });
 
     Object.defineProperty(counter, "decrease", {
-        value: function() { count--; }
+        value: () => {
+            count--;
+        }
     });
 
     return counter;
