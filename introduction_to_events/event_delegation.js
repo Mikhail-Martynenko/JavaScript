@@ -1,5 +1,4 @@
 //Спрячьте сообщения с помощью делегирования
-// важность: 5D
 // Дан список сообщений с кнопками для удаления [x]. Заставьте кнопки работать.
 //
 // В результате должно работать вот так:
@@ -36,9 +35,11 @@
 </body>*/
 
 container.onclick = (event) => {
-    if (event.target.className != 'remove-button') return;
+    if (event.target.className !== 'remove-button') return;
 
-    event.target.closest('.pane').remove();
+    const pane = event.target.closest('.pane')
+    if (!pane) return;
+    pane.remove()
 }
 
 

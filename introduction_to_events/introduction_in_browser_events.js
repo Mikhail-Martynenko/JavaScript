@@ -16,15 +16,18 @@
 
 <script>
 
+ \
 }
 </script>
 
 </body>
 
  */
-document.getElementById('hider').onclick = () => {
-    document.getElementById('text').innerHTML = ''
-//или document.getElementById('text').hidden = true;
+
+const element = document.getElementById("hider");
+const text = document.getElementById('text')
+if (element) {
+    element.addEventListener('click', () => text ? text.hidden = true : '')
 }
 
 //Спрятать себя
@@ -34,7 +37,6 @@ document.getElementById('hider').onclick = () => {
 //
 // решение
 //<button onClick="this.hidden=true">Hide</button>
-
 
 
 //Какой обработчик запустится?
@@ -50,3 +52,4 @@ document.getElementById('hider').onclick = () => {
 
 // решение
 // 1,2
+//при вызове removeEventListener мы передаем анонимную функцию, которая не совпадает с функцией обработчика, добавленной ранее, то никакого эффекта от этой команды не будет.
