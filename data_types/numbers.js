@@ -4,9 +4,9 @@
 // Запустить демо
 //
 // P.S. Есть «подводный камень» при работе с типами.
-let a = +prompt('Введите число a', 0)
-let b = +prompt('Введите число b', 0)
-alert(a + b)
+// let a = +prompt('Введите число a', 0)
+// let b = +prompt('Введите число b', 0)
+// alert(a + b)
 
 
 // 2. Почему 6.35.toFixed(1) == 6.3?
@@ -22,7 +22,7 @@ alert(a + b)
 
 // Ответ
 //Приблизить его к целому числу, перед округлением:
-alert((6.35 * 10).toFixed(20));
+// alert((6.35 * 10).toFixed(20));
 
 
 //3. Ввод числового значения
@@ -33,21 +33,21 @@ alert((6.35 * 10).toFixed(20));
 //
 // Также надо разрешить пользователю остановить процесс ввода, отправив пустую строку или нажав «Отмена».
 // В этом случае функция должна вернуть null.
-const readNumber = () => ((num = prompt("Введите число", 0)) === null || num === '' || !isFinite(num)) ? null : +num;
-
-const readNumber2 = () => {
-    let num;
-
-    do {
-        num = prompt("Введите число:", "");
-        if (num === null) {
-            return null;
-        }
-    } while (!isFinite(num));
-
-    return +num;
-};
-alert(`Число: ${readNumber2()}`);
+// const readNumber = () => ((num = prompt("Введите число", 0)) === null || num === '' || !isFinite(num)) ? null : +num;
+//
+// const readNumber2 = () => {
+//     let num;
+//
+//     do {
+//         num = prompt("Введите число:", "");
+//         if (num === null) {
+//             return null;
+//         }
+//     } while (!isFinite(num));
+//
+//     return +num;
+// };
+// alert(`Число: ${readNumber2()}`);
 //4. Бесконечный цикл по ошибке
 // Этот цикл – бесконечный. Он никогда не завершится, почему?
 //
@@ -72,9 +72,22 @@ alert(`Число: ${readNumber2()}`);
 const random = (min, max) => min + Math.random() * (max - min);
 
 //вариант с нормальным распределением с использованием функции Бокса-Мюллера
+// z = sqrt(-2.0 * log(u)) * cos(2.0 * PI * v)
 const randomNormal = (min, max) => {
     const u = Math.random();
     const v = Math.random();
     const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
-    return Math.round(z * ((max - min) / 6.0) + ((max + min) / 2.0));
+    const range = max - min;
+    const mean = (max + min) / 2.0;
+    const value = Math.round(z * (range / 6.0) + mean);
+    return Math.min(Math.max(value, min), max);
 }
+
+const map = {}
+
+for (let i = 0; i < 100000; i++) {
+    const r = Math.round(randomNormal(1, 10));
+    map[r] = (map[r] ?? 0) + 1
+}
+
+console.log(map)

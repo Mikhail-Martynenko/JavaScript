@@ -49,3 +49,21 @@ const topSalary = (salaries) => {
 
 const topSalary2 = (salaries) => Object.entries(salaries).reduce((acc, [name, salary]) => acc.salary > salary ? acc : { name, salary }, { name: null, salary: 0 }).name;
 console.log(topSalary2(salaries))
+
+
+const salaryReducer = (maxFirst = true) => [
+    (acc, [name, salary]) => (maxFirst ? acc.salary > salary : acc.salary < salary) ? acc : { name, salary },
+    { name: null, salary: 0 }
+]
+
+const findSalaryRecord = (maxFirst, salaries) => Object.entries(salaries).reduce(...salaryReducer(maxFirst))
+
+const topSalaryRecord = findSalaryRecord.bind(null, true)
+
+const topSalaryUser = (salaries) => topSalaryRecord(salaries).name;
+
+const topSalaryUserInRamda = (salaries) => prop('name', topSalaryRecord(salaries))
+
+const minSalaryRecord = findSalaryRecord.bind(null, false)
+
+const minSalaryUser = (salaries) => minSalaryRecord(salaries).name;

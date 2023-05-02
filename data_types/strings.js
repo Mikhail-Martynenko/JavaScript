@@ -16,13 +16,20 @@ console.log(ucFirst('вася'))
 // checkSpam('free xxxxx') == true
 // checkSpam("innocent rabbit") == false
 const badWords = ['viagra', 'xxx']
-const checkSpam = (str) => {
-    let lowerStr = str.toLowerCase()
-    const lowerArray = badWords.map(word => word.toLowerCase())
-    return lowerArray.includes(lowerStr)
-}
+const badSet = new Set(badWords.map(word => word.toLowerCase()))
 
-console.log(checkSpam('xxX'))
+// Вариант через Set и метод has - короче и быстрее, согласен, но для заданных примеров в условии, он не подойдет
+// const checkSpam = (str) => badSet.has(str)
+//console.log(checkSpam('free xxxxx')) // false
+//console.log(checkSpam('buy ViAgRA now')) // false
+// Поэтому доработал:
+const checkSpamSet = (str) => Array.from(badSet).some((word) => str.toLowerCase().indexOf(word) !== -1)
+
+console.log(checkSpamSet('free xxxxx')) // true
+console.log(checkSpamSet('buy ViAgRA now')) // true
+console.log(checkSpamSet('xxx')) // true
+
+
 // Создайте функцию truncate(str, maxlength), которая проверяет длину строки str и, если она превосходит maxlength, заменяет конец str на "…", так, чтобы её длина стала равна maxlength.
 //
 // Результатом функции должна быть та же строка, если усечение не требуется, либо, если необходимо, усечённая строка.
@@ -42,5 +49,5 @@ const truncate = (str, maxlength) => (str.length > maxlength) ? str.slice(0, max
 //
 // Например:
 //alert( extractCurrencyValue('$120') === 120 ); // true
-const extractCurrencyValue = (str) =>  +str.match(/\d+/);
+const extractCurrencyValue = (str) => +str.match(/\d+/);
 console.log(extractCurrencyValue('USD: 400, -40%'))
