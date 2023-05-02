@@ -10,20 +10,22 @@
 // );
 
 function runOnKeys(func, ...codes) {
+
     const pressedKeys = new Set();
     document.addEventListener('keydown', (event) => {
         const {code} = event;
         pressedKeys.add(code);
-        for (let i = 0; i < codes.length; i++) {
-            if (!pressedKeys.has(codes[i])) return;
-        }
+
+        if (codes.some((code) => !pressedKeys.has(code))) return;
         pressedKeys.clear();
         func();
     });
+
     document.addEventListener('keyup', (event) => {
         pressedKeys.delete(event.code);
     });
 }
+
 
 runOnKeys(
     () => alert("Привет!"),

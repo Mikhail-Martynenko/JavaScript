@@ -11,23 +11,23 @@
 // При нажатом бегунке мышь может выходить за пределы полосы слайдера, но слайдер пусть всё равно работает (это удобно для пользователя).
 
 
-let thumb = slider.querySelector('.thumb');
+const thumb = slider.querySelector('.thumb');
 
 thumb.addEventListener('mousedown', (event) => {
     event.preventDefault();
 
-    let shiftX = event.clientX - thumb.getBoundingClientRect().left;
+    const shiftX = event.clientX - thumb.getBoundingClientRect().left;
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp, {once: true});
 
     function onMouseMove(event) {
-        let moveL = event.clientX - shiftX - slider.getBoundingClientRect().left;
-        moveL = Math.max(0, Math.min(moveL, slider.offsetWidth - thumb.offsetWidth));
+        const moveLeft = event.clientX - shiftX - slider.getBoundingClientRect().left;
+        const minMove = Math.min(moveLeft, slider.offsetWidth - thumb.offsetWidth)
+        const moveLeftResult = Math.max(0, minMove);
 
-        thumb.style.left = moveL + 'px';
+        thumb.style.left = moveLeftResult + 'px';
     }
-
     function onMouseUp() {
         document.removeEventListener('mousemove', onMouseMove);
     }

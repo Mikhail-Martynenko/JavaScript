@@ -13,18 +13,20 @@
 
 ul.addEventListener('click', (event) => {
     const target = event.target.closest('li');
+
     if (!target) return;
+    if (!event.ctrlKey || !event.metaKey) return;
 
     target.classList.toggle('selected');
-    if (!event.ctrlKey && !event.metaKey) {
-        ul.querySelectorAll('li.selected').forEach((li) => {
-            if (li !== target) li.classList.remove('selected');
-        });
-    }
+
+    ul.querySelectorAll('li.selected').forEach((li) => {
+        if (li === target) return;
+        li.classList.remove('selected');
+    });
+
 });
 
 ul.addEventListener('mousedown', (event) => {
-    if (event.target.closest('li')) {
-        event.preventDefault();
-    }
+    if (!event.target.closest('li')) return;
+    event.preventDefault();
 });
