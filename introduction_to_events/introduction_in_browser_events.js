@@ -26,7 +26,7 @@
 
 const element = document.getElementById("hider");
 const text = document.getElementById('text')
-if (element) {
+if (element && text) {
     element.addEventListener('click', () => text ? text.hidden = true : '')
 }
 
