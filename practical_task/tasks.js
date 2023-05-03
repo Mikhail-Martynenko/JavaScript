@@ -19,7 +19,13 @@ console.log(shallowEquals({a: 1, b: "2"}, {a: 1, b: "2"})); // true
 console.log(shallowEquals({a: 0}, {a: undefined})); // false
 console.log(shallowEquals({a: {}}, {a: {}})); // false
 console.log(shallowEquals({a: []}, {a: []})); // false
-console.log(shallowEquals({a: () => {}}, {a: () => {}})); // false
+console.log(shallowEquals({
+    a: () => {
+    }
+}, {
+    a: () => {
+    }
+})); // false
 
 
 //3) Напишите функцию, которая будет устанавливать значение в объекте, по переданному пути. Сигнатура функции должна быть
@@ -48,7 +54,7 @@ setNestedValue(["user", "name"], "Sam", obj);
 console.log(obj.user.name); // { user: { name: 'Sam' } }
 
 //4) Реализуйте, на выбор, один из методов массива: map, sort, filter. Пример работы:
-Array.prototype.myMap = function (callback) {
+Array.prototype.myMap = (callback) => {
     const result = [];
 
     for (let i = 0; i < this.length; i++) {
@@ -78,6 +84,99 @@ const fillUser = pipe(
 //6) Напишите функцию для поиска значения в n-арном дереве. Если искомое значение отсутствует,
 // необходимо вернуть значение -1. Найдите 11, 1 и 25 узел из дерева.
 
+const searchInTree = (tree, targetValue) => {
+    // Если текущий узел имеет значение, равное искомому, возвращаем его
+    if (tree.node === targetValue) {
+        return tree.node;
+    }
+
+    // Рекурсивно обходим все дочерние узлы текущего узла
+    for (let i = 0; i < tree.children.length; i++) {
+        const child = tree.children[i];
+
+        // Если у дочернего узла есть потомки, вызываем эту же функцию для них
+        if (child.children.length > 0) {
+            const result = searchInTree(child, targetValue);
+            if (result !== -1) {
+                return result;
+            }
+        }
+
+        // Иначе, если текущий дочерний узел имеет значение, равное искомому, возвращаем его
+        if (child.node === targetValue) {
+            return child.node;
+        }
+    }
+
+    // Если мы добрались до этой точки, значит искомое значение не найдено
+    return -1;
+}
+
+const tree = {
+    node: 1,
+    children: [
+        {
+            node: 2,
+            children: [
+                {
+                    node: 3,
+                    children: [
+                        {
+                            node: 4,
+                            children: [
+                                {
+                                    node: 5,
+                                    children: [],
+                                },
+                                {
+                                    node: 6,
+                                    children: [],
+                                },
+                                {
+                                    node: 7,
+                                    children: [],
+                                },
+                                {
+                                    node: 8,
+                                    children: [],
+                                },
+                            ],
+                        },
+                        {
+                            node: 9,
+                            children: [],
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            node: 10,
+            children: [
+                {
+                    node: 11,
+                    children: [
+                        {
+                            node: 12,
+                            children: [],
+                        },
+                    ],
+                },
+                {
+                    node: 13,
+                    children: [],
+                },
+                {
+                    node: 14,
+                    children: [],
+                },
+            ],
+        },
+    ],
+};
+console.log(searchInTree(tree, 11), 'task 6')
+console.log(searchInTree(tree, 1), 'task 6')
+console.log(searchInTree(tree, 25), 'task 6')
 
 //7) Напишите упрощенную версию для нативного типа данных Set, MySet. Ваша реализация должна предоставлять методы add, has, delete, clear и свойство size. При создании MySet принимает только массив, если передать другое значение, то необходимо выдавать ошибку, что переданное значение не поддерживается. Способы реализации методов произвольные. Пример работы MySet
 // const mySet = new MySet([ 0, 1, 2, 3]);
@@ -108,6 +207,22 @@ const fillUser = pipe(
 { width: 100, height: 50 }
 */
 
+// Функция для преобразования массива в объект:
+function arrayToObject(arr) {
+    const obj = {};
+    arr.forEach(({name, value}) => {
+        obj[name] = value;
+    });
+    return obj;
+}
+
+// Функция для преобразования объекта в массив:
+const objectToArray = (obj) => Object.entries(obj).map(([name, value]) => ({name, value}));
+console.log(objectToArray({width: 100, height: 50}))
+console.log(arrayToObject([
+    {name: "width", value: 100},
+    {name: "height", value: 50},
+]))
 
 //9) Написать функцию asyncTimeout. Функция должна принимать значения timeout,
 // по завершении которого возвращает зарезолвленный промис. Пример работы:
@@ -131,7 +246,7 @@ const asyncTimeout = (timeout) => {
 // еще через 1 секунду “3”
 // еще через 3 секунды “4”
 
-function promiseStack(promises) {
+const promiseStack = (promises) => {
     let chain = Promise.resolve();
 
     promises.forEach((promiseFn) => {
@@ -141,12 +256,12 @@ function promiseStack(promises) {
     return chain;
 }
 
-promiseStack([
-    () => asyncTimeout(4000).then(() => console.log(1)),
-    () => asyncTimeout(2000).then(() => console.log(2)),
-    () => asyncTimeout(1000).then(() => console.log(3)),
-    () => asyncTimeout(3000).then(() => console.log(4)),
-]);
+// promiseStack([
+//     () => asyncTimeout(4000).then(() => console.log(1, 'task 10')),
+//     () => asyncTimeout(2000).then(() => console.log(2, 'task 10')),
+//     () => asyncTimeout(1000).then(() => console.log(3, 'task 10')),
+//     () => asyncTimeout(3000).then(() => console.log(4, 'task 10')),
+// ]);
 
 
 // 11) Обновите функцию promiseStack, таким образом, чтобы она принимала второй необязательный аргумент отвечающий за количество параллельно обрабатываемых промисов.Результатом выполнения данного кода должно быть следующее:
@@ -163,3 +278,28 @@ promiseStack([
 //   () => asyncTimeout(1000).then(() => console.log(3)),
 //   () => asyncTimeout(3000).then(() => console.log(4)),
 // ], 2);
+function promiseStackParallel(promises, parallel = 1) {
+    const chains = [];
+
+    for (let i = 0; i < parallel; i++) {
+        chains.push(Promise.resolve());
+    }
+
+    promises.forEach((promiseFn, index) => {
+        const chainIndex = index % parallel;
+        chains[chainIndex] = chains[chainIndex].then(promiseFn);
+    });
+
+    return Promise.all(chains);
+}
+
+// Проверяем работу функции
+promiseStackParallel([
+    () => asyncTimeout(4000).then(() => console.log(1, 'Task 11')),
+    () => asyncTimeout(4000).then(() => console.log(1, 'Task 11')),
+    () => asyncTimeout(2000).then(() => console.log(2, 'Task 11')),
+    () => asyncTimeout(2000).then(() => console.log(2, 'Task 11')),
+    () => asyncTimeout(1000).then(() => console.log(3, 'Task 11')),
+    () => asyncTimeout(1000).then(() => console.log(3, 'Task 11')),
+    () => asyncTimeout(3000).then(() => console.log(4, 'Task 11')),
+], 2);
