@@ -178,21 +178,61 @@ console.log(searchInTree(tree, 11), 'task 6')
 console.log(searchInTree(tree, 1), 'task 6')
 console.log(searchInTree(tree, 25), 'task 6')
 
-//7) Напишите упрощенную версию для нативного типа данных Set, MySet. Ваша реализация должна предоставлять методы add, has, delete, clear и свойство size. При создании MySet принимает только массив, если передать другое значение, то необходимо выдавать ошибку, что переданное значение не поддерживается. Способы реализации методов произвольные. Пример работы MySet
-// const mySet = new MySet([ 0, 1, 2, 3]);
-//
-// console.log(mySet); // { 0, 1, 2, 3, size: 4 }
-// console.log(mySet.size); // 4
-// console.log(mySet.has(6)); // false
-//
-// mySet.add(4);
-// console.log(mySet); // { 0, 1, 2, 3, 4, size: 5 }
-//
-// mySet.delete(2);
-// console.log(mySet); // { 0, 1, 2: 3, 3: 4, size: 4 }
-//
-// mySet.clear();
-// console.log(mySet); // { size: 0 }
+//7) Напишите упрощенную версию для нативного типа данных Set, MySet. Ваша реализация должна предоставлять методы add, has,
+// delete, clear и свойство size. При создании MySet принимает только массив, если передать другое значение, то необходимо выдавать ошибку,
+// что переданное значение не поддерживается. Способы реализации методов произвольные. Пример работы MySet
+
+class MySet {
+    constructor(arr) {
+        if (!Array.isArray(arr)) {
+            throw new Error('Массив должен быть передан в качестве аргумента');
+        }
+        this.items = {};
+        this.size = 0;
+        arr.forEach((item) => {
+            this.add(item);
+        });
+    }
+
+    add(item) {
+        if (!this.has(item)) {
+            this.items[item] = item;
+            this.size++;
+        }
+    }
+
+    has(item) {
+        return this.items.hasOwnProperty(item);
+    }
+
+    delete(item) {
+        if (this.has(item)) {
+            delete this.items[item];
+            this.size--;
+        }
+    }
+
+    clear() {
+        this.items = {};
+        this.size = 0;
+    }
+}
+
+
+const mySet = new MySet([0, 1, 2, 3]);
+
+console.log(mySet); // { 0, 1, 2, 3, size: 4 }
+console.log(mySet.size); // 4
+console.log(mySet.has(6)); // false
+
+mySet.add(4);
+console.log(mySet); // { 0, 1, 2, 3, 4, size: 5 }
+
+mySet.delete(2);
+console.log(mySet); // { 0, 1, 2: 3, 3: 4, size: 4 }
+
+mySet.clear();
+console.log(mySet); // { size: 0 }
 
 
 // 8) Напишите две функции для преобразования приведенного массива в указанный объект и для преобразования полученного объекта в исходный массив.
@@ -239,8 +279,8 @@ const asyncTimeout = (timeout) => {
 //
 // asyncTimeout(1000).then(() => console.log(2));
 
-//10)  Напишите функцию promiseStack, которая принимает массив функций возвращающих промис и вызывает их в порядке очереди,
-// пока первый промис не завершился второй не начинается. Результатом выполнения данного кода должно быть следующее:
+//10) Напишите функцию promiseStack, которая принимает массив функций возвращающих промис и вызывает их в порядке очереди,
+// пока первый промис не завершился, второй не начинается. Результатом выполнения данного кода должно быть следующее:
 // через 4 секунды в консоль выведется “1”
 // еще через 2 секунды “2”
 // еще через 1 секунду “3”

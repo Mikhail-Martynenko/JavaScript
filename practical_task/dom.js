@@ -28,29 +28,41 @@ console.log(getFormValue());
 // 3) Напишите функцию JavaScript для добавления строк в таблицу.
 // <!DOCTYPE html>
 // <html>
-//   <head><meta charset=utf-8 />
+// <head>
+// <meta charset="utf-8" />
 //     <title>Insert row in a table - w3resource</title>
-//   </head>
-//   <body>
-//     <table id="sampleTable" border="1">
-//       <tr>
+// </head>
+// <body>
+// <table id="sampleTable" border="1">
+//     <tr>
 //         <td>Row1 cell1</td>
 //         <td>Row1 cell2</td>
-//       </tr>
-//       <tr>
+//     </tr>
+//     <tr>
 //         <td>Row2 cell1</td>
 //         <td>Row2 cell2</td>
-//       </tr>
-//     </table>
-//     <br>
-//     <input type="button" onclick="insert_Row()" value="Insert row">
-//   </body>
+//     </tr>
+// </table>
+// <br />
+// <input type="button" onclick="insert_Row()" value="Insert row" />
+// </body>
+// <script>
+//     function insert_Row() {
+//     const table = document.getElementById("sampleTable");
+//     const row = table.insertRow(-1);
+//     const cell1 = row.insertCell(0);
+//     const cell2 = row.insertCell(1);
+//     cell1.innerHTML = "New row cell 1";
+//     cell2.innerHTML = "New row cell 2";
+// }
+// </script>
 // </html>
+
 
 
 //4) Напишите программу на JavaScript для вычисления объема сферы.
 
-//<!DOCTYPE html>
+// <!DOCTYPE html>
 // <html>
 //   <head>
 //     <meta charset="UTF-8" />
