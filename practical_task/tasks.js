@@ -248,13 +248,7 @@ console.log(mySet); // { size: 0 }
 */
 
 // Функция для преобразования массива в объект:
-function arrayToObject(arr) {
-    const obj = {};
-    arr.forEach(({name, value}) => {
-        obj[name] = value;
-    });
-    return obj;
-}
+const arrayToObject = (arr) => Object.fromEntries(arr.map(({name, value}) => [name, value]))
 
 // Функция для преобразования объекта в массив:
 const objectToArray = (obj) => Object.entries(obj).map(([name, value]) => ({name, value}));
@@ -266,13 +260,8 @@ console.log(arrayToObject([
 
 //9) Написать функцию asyncTimeout. Функция должна принимать значения timeout,
 // по завершении которого возвращает зарезолвленный промис. Пример работы:
-const asyncTimeout = (timeout) => {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve();
-        }, timeout);
-    });
-}
+const asyncTimeout = timeout => new Promise(resolve => setTimeout(resolve, timeout));
+
 // setTimeout(() => console.log(3), 2000);
 //
 // console.log(1);
